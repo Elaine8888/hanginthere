@@ -1,17 +1,13 @@
-请替换这两个文件：
-1. speaking.html
-2. site-data.js
+这次先改界面，请替换：
+1. index.html
+2. speaking.html
+3. styles.css
 
-并把下面这段样式追加到你现有的 styles.css 末尾：
-- 文件名：styles-append.txt
+这版只处理 UI：
+- 首页恢复卡片样式
+- Speaking 页面恢复统一风格
+- 先不动音频逻辑，避免界面和脚本互相影响
 
-这版已实现：
-- 使用你已上传的 m4a 音频逐句播放
-- 0.5x / 0.75x / 1.0x 播放速度
-- 每句单独录音
-- 每句录完后可直接回放自己的录音
-
-注意：
-- 音频路径按 audio/speaking/*.m4a 写入
-- 跟读录音使用浏览器麦克风权限，第一次会弹出授权
-- 录音是本地临时播放，不会自动上传或保存到服务器
+上传后如果还是看到旧样式，请强制刷新：
+Mac: Command + Shift + R
+Windows: Ctrl + F5
