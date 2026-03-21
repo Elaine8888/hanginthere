@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Speaking Practice</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Speaking — Listen and Repeat</h1>
+    <h2>20260321 Set 1</h2>
+
+    <div id="speaking-container"></div>
+  </div>
+
+<script src="site-data.js"></script>
+
+<script>
+let voices = [];
+
+function loadVoices() {
+  voices = speechSynthesis.getVoices();
+}
+loadVoices();
+speechSynthesis.onvoiceschanged = loadVoices;
+
+function speak(text) {
+  const utter = new SpeechSynthesisUtterance(text);
+
+  const preferred = voices.find(v =>
+    v.lang.includes("en") &&
+    (v.name.includes("Google") || v.name.includes("Natural") || v.name.includes("Samantha"))
+  );
+
+  if (preferred) utter.voice = preferred;
+
+  utter.rate = 0.95;
+  utter.pitch = 1;
+
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utter);
+}
+
+const container = document.getElementById("speaking-container");
+const speaking = siteData.speaking.types.find(t => t.id === "lr");
+
+speaking.data.forEach(item => {
+  const card = document.createElement("div");
+  card.className = "card";
+
+  const header = document.createElement("div");
+  header.className = "card-header";
+  header.innerText = item.title + " ▶";
+
+  const content = document.createElement("div");
+  content.className = "card-content";
+  content.style.display = "none";
+
+  item.lines.forEach(line => {
+    const p = document.createElement("p");
+    p.innerHTML = `🔊 ${line}`;
+    p.onclick = () => speak(line);
+    content.appendChild(p);
+  });
+
+  const vocabTitle = document.createElement("h4");
+  vocabTitle.innerText = "Vocabulary";
+  content.appendChild(vocabTitle);
+
+  item.vocab.forEach(v => {
+    const p = document.createElement("p");
+    p.innerText = "• " + v;
+    content.appendChild(p);
+  });
+
+  header.onclick = () => {
+    const open = content.style.display === "block";
+    content.style.display = open ? "none" : "block";
+    header.innerText = item.title + (open ? " ▶" : " ▼");
+  };
+
+  card.appendChild(header);
+  card.appendChild(content);
+  container.appendChild(card);
+});
+</script>
+
+</body>
+</html>

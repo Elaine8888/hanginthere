@@ -1,73 +1,57 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hang in There | 英语训练站</title>
-  <link rel="stylesheet" href="./styles.css" />
-  <script src="./site-data.js"></script>
+  <meta charset="UTF-8">
+  <title>Hang in There</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  <header class="site-header">
-    <div class="container">
-      <div class="brand">
-        <div class="brand-badge">H</div>
-        <div class="brand-text">
-          <h1>Hang in There</h1>
-          <p>阅读 / 听力 / 口语 / 写作 题型导航页</p>
-        </div>
-      </div>
+  <div class="container">
+    <h1>Hang in There</h1>
+
+    <p class="intro">
+      Find your practice by section.<br>
+      All exercises are organized into <b>Reading, Listening, Speaking, and Writing</b>.<br>
+      Select a question type and start practicing.<br><br>
+      💪 Keep going — small steps every day lead to big progress.
+    </p>
+
+    <div class="section">
+      <h2>📖 Reading</h2>
+      <ul>
+        <li><a href="complete-the-words.html">Complete the Words</a></li>
+        <li>Read in Daily Life</li>
+        <li>Read an Academic Passage</li>
+      </ul>
     </div>
-  </header>
 
-  <main class="container">
-    <section class="hero">
-      <h2>把练习按题型整理起来，网站结构会清楚很多。</h2>
-      <p>
-        现在网站分成 Reading、Listening、Speaking、Writing 四个大栏目。今天新增的 Listen and Repeat 已经录入 1–5 题；其他题型先保留入口，后续你补内容时直接往对应栏目里加就可以。
-      </p>
-    </section>
+    <div class="section">
+      <h2>🎧 Listening</h2>
+      <ul>
+        <li>Listen and Choose a Response</li>
+        <li>Listen to a Conversation</li>
+        <li>Listen to an Announcement</li>
+        <li>Listen to an Academic Talk</li>
+      </ul>
+    </div>
 
-    <section class="grid" id="categoryGrid"></section>
-  </main>
+    <div class="section">
+      <h2>🗣️ Speaking</h2>
+      <ul>
+        <li><a href="speaking.html">Listen and Repeat</a></li>
+        <li>Take an Interview</li>
+      </ul>
+    </div>
 
-  <footer class="site-footer">
-    <div class="container">Hang in There · Built for structured English practice</div>
-  </footer>
-
-  <script>
-    const categoryGrid = document.getElementById('categoryGrid');
-
-    function renderHome() {
-      categoryGrid.innerHTML = siteData.categories.map(category => {
-        const links = category.types.map(type => {
-          const href = `./module.html?category=${encodeURIComponent(category.id)}&type=${encodeURIComponent(type.id)}`;
-          return `
-            <a class="type-link" href="${href}">
-              <span class="type-name">${type.name}</span>
-              <span class="type-desc">${type.description}</span>
-            </a>
-          `;
-        }).join('');
-
-        return `
-          <section class="category-card">
-            <div class="category-head">
-              <div class="category-title">
-                <div class="category-icon">${category.icon}</div>
-                <div>
-                  <h3>${category.name}</h3>
-                  <p>${category.description}</p>
-                </div>
-              </div>
-            </div>
-            <div class="type-list">${links}</div>
-          </section>
-        `;
-      }).join('');
-    }
-
-    renderHome();
-  </script>
+    <div class="section">
+      <h2>✍️ Writing</h2>
+      <ul>
+        <li>Build a Sentence</li>
+        <li>Write an Email</li>
+        <li>Academic Discussion</li>
+      </ul>
+    </div>
+  </div>
 </body>
 </html>
