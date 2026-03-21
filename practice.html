@@ -15,7 +15,21 @@
     .mini-title { color:#4a90e2; font-weight:700; margin-bottom:14px; }
     .passage { font-size:1.12rem; line-height:2.7; text-align:justify; margin:25px 0; }
     .word-group { display:inline-flex; align-items:baseline; margin:0 2px; }
-    .char-input { width:16px; height:22px; border:none; border-bottom:2px solid #bbb; margin:0 1px; text-align:center; font-size:1.1rem; outline:none; color:#4a90e2; background:transparent; padding:0; font-weight:500; }
+    .char-input {
+      width:16px;
+      height:22px;
+      border:none;
+      border-bottom:2px solid #bbb;
+      margin:0 1px;
+      text-align:center;
+      font-size:1.1rem;
+      outline:none;
+      color:#4a90e2;
+      background:transparent;
+      padding:0;
+      font-weight:500;
+      border-radius:0;
+    }
     .char-input.correct { border-bottom-color:var(--success); color:var(--success); }
     .char-input.wrong { border-bottom-color:var(--error); color:var(--error); }
     .answer-area { margin-top:30px; padding:20px; background:#f8f9fa; border-radius:8px; border-left:5px solid var(--primary); }
@@ -27,6 +41,19 @@
     .btn-next { background:var(--success); color:white; }
     .btn-back, .btn-retry { background:#6c757d; color:white; }
     .hidden { display:none; }
+
+    @media (max-width: 640px) {
+      body { padding:14px; }
+      .container { padding:20px 16px; }
+      #timer { position:static; display:inline-block; margin-bottom:12px; }
+      h1 { padding-right:0; font-size:1.5rem; }
+      .passage { font-size:1.05rem; line-height:2.45; }
+      .char-input {
+        width:20px;
+        height:28px;
+        font-size:1.15rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -91,7 +118,18 @@
     (d.items || []).forEach((item, i) => {
       let inputs = `<span class="word-group"><span style="font-weight:bold; color:#2c3e50;">${item.p}</span>`;
       for (let c = 0; c < item.g; c++) {
-        inputs += `<input type="text" maxlength="1" class="char-input" data-ans-idx="${i}">`;
+        inputs += `<input
+          type="text"
+          maxlength="1"
+          class="char-input"
+          data-ans-idx="${i}"
+          autocapitalize="off"
+          autocomplete="off"
+          autocorrect="off"
+          spellcheck="false"
+          inputmode="text"
+          enterkeyhint="next"
+        >`;
       }
       inputs += `</span>`;
       html = html.replace(`${item.p}{${i}}`, inputs);
@@ -113,8 +151,20 @@
   function setupInputs() {
     const ins = Array.from(document.querySelectorAll('.char-input'));
     ins.forEach((el, i) => {
-      el.addEventListener('input', () => { if (el.value && i < ins.length - 1) ins[i + 1].focus(); });
-      el.addEventListener('keydown', (e) => { if (e.key === 'Backspace' && !el.value && i > 0) ins[i - 1].focus(); });
+      el.addEventListener('input', () => {
+        el.value = (el.value || '').toLowerCase().replace(/[^a-z]/g, '').slice(0, 1);
+        if (el.value && i < ins.length - 1) ins[i + 1].focus();
+      });
+
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !el.value && i > 0) ins[i - 1].focus();
+      });
+
+      el.addEventListener('focus', () => {
+        requestAnimationFrame(() => {
+          el.setSelectionRange(0, el.value.length);
+        });
+      });
     });
   }
 
