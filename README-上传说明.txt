@@ -1,31 +1,17 @@
-上传说明：
+请替换这两个文件：
+1. speaking.html
+2. site-data.js
 
-这次请替换 / 新增以下文件：
-1. index.html
-2. speaking.html
-3. styles.css
-4. site-data.js
+并把下面这段样式追加到你现有的 styles.css 末尾：
+- 文件名：styles-append.txt
 
-请保留你原来的：
-- complete-the-words.html
-- question.js
+这版已实现：
+- 使用你已上传的 m4a 音频逐句播放
+- 0.5x / 0.75x / 1.0x 播放速度
+- 每句单独录音
+- 每句录完后可直接回放自己的录音
 
-建议目录：
-/
-├── index.html
-├── speaking.html
-├── styles.css
-├── site-data.js
-├── complete-the-words.html
-└── question.js
-
-这次更新内容：
-- 首页恢复为更完整的卡片式 UI
-- Speaking 页面改成点开场景后再看句子
-- 每句支持浏览器 TTS 播放
-- 新增 voice style 选项：Expressive / Clear / Slow and clear
-- 已加入 20260321 Set 1 的 5 个场景：Gym / Wood Shop / Library / Campus Tour / Course System
-
-说明：
-浏览器自带 TTS 的声音效果会受设备和浏览器影响。
-这个版本会优先尝试调用更自然的英文 voice，但不同学生设备上效果可能略有不同。
+注意：
+- 音频路径按 audio/speaking/*.m4a 写入
+- 跟读录音使用浏览器麦克风权限，第一次会弹出授权
+- 录音是本地临时播放，不会自动上传或保存到服务器

@@ -12,6 +12,16 @@ const siteData = {
               {
                 id: 1,
                 title: "Gym",
+                audio: "gym.m4a",
+                timestamps: [
+                  [0, 3],
+                  [3, 7],
+                  [7, 11.5],
+                  [11.5, 16.5],
+                  [16.5, 21.5],
+                  [21.5, 26.5],
+                  [26.5, 32]
+                ],
                 lines: [
                   "Cardio machines and bikes are over here.",
                   "The weight room provides dumbbells and benches.",
@@ -22,7 +32,7 @@ const siteData = {
                   "Before you leave, check the gym floor plan for specific areas and equipment."
                 ],
                 vocab: [
-                  "cardio machines — 有氧健身器械",
+                  "cardio machines — 有氧健身器械（如跑步机、椭圆机等）",
                   "weight room — 力量训练区",
                   "dumbbells — 哑铃",
                   "benches — 训练凳",
@@ -31,7 +41,7 @@ const siteData = {
                   "locker rooms — 更衣室，储物柜区",
                   "storage bins — 储物箱",
                   "changing facilities — 更衣设施",
-                  "smoothie bar — 思慕雪吧台",
+                  "smoothie bar — 思慕雪吧台（健康饮品区）",
                   "sample — 品尝；尝试",
                   "nutritious drinks and snacks — 营养饮品与小食",
                   "personal trainers — 私人教练",
@@ -42,6 +52,16 @@ const siteData = {
               {
                 id: 2,
                 title: "Wood Shop",
+                audio: "wood-shop.m4a",
+                timestamps: [
+                  [0, 2],
+                  [2, 6],
+                  [6, 10],
+                  [10, 15],
+                  [15, 20],
+                  [20, 25],
+                  [25, 30]
+                ],
                 lines: [
                   "Welcome to the wood shop.",
                   "This tool box contains everything you should need.",
@@ -65,6 +85,16 @@ const siteData = {
               {
                 id: 3,
                 title: "Library",
+                audio: "library.m4a",
+                timestamps: [
+                  [0, 3],
+                  [3, 7],
+                  [7, 11.5],
+                  [11.5, 16],
+                  [16, 21],
+                  [21, 27.5],
+                  [27.5, 32]
+                ],
                 lines: [
                   "The computer lab has free Wi-Fi access.",
                   "The reading room is a quiet space for patrons.",
@@ -77,7 +107,7 @@ const siteData = {
                 vocab: [
                   "free Wi-Fi access — 免费无线网络接入",
                   "reading room — 阅览室",
-                  "patrons — 读者",
+                  "patrons — 读者（图书馆对用户的称呼）",
                   "children's section — 儿童阅览区",
                   "reference desk — 咨询台，参考咨询处",
                   "assistance — 帮助",
@@ -92,6 +122,16 @@ const siteData = {
               {
                 id: 4,
                 title: "Campus Tour",
+                audio: "campus-tour.m4a",
+                timestamps: [
+                  [0, 2],
+                  [2, 5],
+                  [5, 8],
+                  [8, 12],
+                  [12, 16],
+                  [16, 21.5],
+                  [21.5, 26]
+                ],
                 lines: [
                   "Welcome to our campus tour.",
                   "The enrollment office is straight ahead.",
@@ -116,6 +156,16 @@ const siteData = {
               {
                 id: 5,
                 title: "Course System",
+                audio: "course-system.m4a",
+                timestamps: [
+                  [0, 3],
+                  [3, 7],
+                  [7, 12],
+                  [12, 17],
+                  [17, 22],
+                  [22, 27.5],
+                  [27.5, 32]
+                ],
                 lines: [
                   "Enter your name and student ID number.",
                   "Browse the course catalog to choose your classes.",
