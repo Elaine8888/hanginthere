@@ -1,7 +1,7 @@
 window.questions = [
   {
     "id": 1,
-    "title": "history of the South Pacific",
+    "title": "South Pacific History",
     "subtitle": "",
     "date": "20260121",
     "template": "The history of the South Pacific is marked by diverse cultures and significant events. Indigenous popul{0} developed com{1} societies wi{2} rich tradi{3} and soc{4} structures. T{5} region’s poli{6} and econ{7} landscapes exper{8} profound cha{9} following colonization by Europeans. Studying this history allows for a greater understanding of cultural interactions and the ongoing effects of historical events on contemporary South Pacific societies. Traditional navigation techniques using stars and ocean swells enabled remarkable voyaging achievements, while contemporary movements focus on cultural preservation, language revitalization, and addressing climate change impacts on island nations.",
