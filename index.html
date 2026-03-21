@@ -1,54 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<title>TOEFL Complete the Words</title>
-<style>
-body {font-family: Arial; background:#f5f7fb; margin:0; padding:20px;}
-.container {max-width:900px; margin:auto;}
-.card {display:block; padding:15px; margin:10px 0; background:white; border-radius:10px; text-decoration:none; color:#333;}
-.badge {font-size:12px; padding:3px 6px; border-radius:6px;}
-.badge-none {background:#eee;}
-.badge-done {background:#4caf50; color:white;}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOEFL Complete the Words</title>
+  <style>
+    :root { --primary:#4a90e2; --success:#28a745; --muted:#6b7280; --bg:#f4f7f9; --card:#ffffff; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:'Segoe UI', system-ui, sans-serif; background:var(--bg); color:#333; }
+    .wrap { max-width:1200px; margin:0 auto; padding:28px 20px 40px; }
+    .hero { background:#fff; border:1px solid #dbe8fb; border-radius:28px; padding:34px 34px 28px; margin-bottom:24px; }
+    .hero h1 { margin:0 0 10px; color:var(--primary); font-size:2.2rem; }
+    .hero p { margin:0; color:#667085; font-size:1.05rem; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:16px; }
+    .card { background:#fff; border-radius:18px; padding:18px; text-decoration:none; color:inherit; border:1px solid #e8eef7; box-shadow:0 4px 16px rgba(24,39,75,.05); transition:.15s ease; }
+    .card:hover { transform:translateY(-2px); box-shadow:0 10px 24px rgba(24,39,75,.08); }
+    .meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; color:#6b7280; font-size:.9rem; }
+    .badge { display:inline-block; padding:4px 10px; border-radius:999px; font-weight:700; font-size:.82rem; }
+    .badge-none { background:#eef2f7; color:#677489; }
+    .badge-done { background:#eaf7ee; color:#1c7c3c; }
+    .card h3 { margin:0 0 8px; font-size:1.06rem; line-height:1.35; color:#222; }
+    .date { color:#8b94a7; font-size:.88rem; min-height:1.1em; }
+    .tip { margin-top:18px; color:#6b7280; font-size:.95rem; }
+  </style>
 </head>
 <body>
-<div class="container">
-<h1>TOEFL Complete the Words</h1>
-<div id="question-grid"></div>
-</div>
-
-<script src="data/questions.js"></script>
-<script>
-const STORAGE_KEY = 'ctw_scores_v1';
-const scores = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-const grid = document.getElementById('question-grid');
-const questionList = window.questions || [];
-
-if (!questionList.length) {
-  grid.innerHTML = '<div style="color:#dc3545;">题库加载失败，请检查 data/questions.js</div>';
-}
-
-questionList.forEach(q => {
-  const score = scores[q.id];
-  const total = q.items ? q.items.length : 10;
-  const done = score !== undefined;
-
-  const card = document.createElement('a');
-  card.className = 'card';
-  card.href = `practice.html?id=${q.id}`;
-
-  card.innerHTML = `
-    <div>
-      <span class="badge ${done ? 'badge-done' : 'badge-none'}">
-        ${done ? `最高分 ${score} / ${total}` : '未开始'}
-      </span>
+  <div class="wrap">
+    <div class="hero">
+      <h1>TOEFL Complete the Words</h1>
+      <p>按题号进入练习。本站保留整词判分逻辑，答题完成后可查看标准答案与最高分记录。</p>
     </div>
-    <h3>${q.title || `Practice ${q.id}`}</h3>
-  `;
+    <div id="question-grid" class="grid"></div>
+    <div class="tip">最高分记录保存在当前浏览器的本地存储中。</div>
+  </div>
 
-  grid.appendChild(card);
-});
-</script>
+  <script src="data/questions.js"></script>
+  <script>
+    const STORAGE_KEY = 'ctw_scores_v1';
+    const scores = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    const grid = document.getElementById('question-grid');
+    const questionList = window.questions || [];
+
+    if (!questionList.length) {
+      grid.innerHTML = '<div style="color:#dc3545;">题库加载失败，请检查 data/questions.js</div>';
+    }
+
+    questionList.forEach(q => {
+      const score = scores[q.id];
+      const total = (q.items || []).length || 10;
+      const done = score !== undefined;
+      const card = document.createElement('a');
+      card.className = 'card';
+      card.href = `practice.html?id=${q.id}`;
+      card.innerHTML = `
+        <div class="meta">
+          <span class="badge ${done ? 'badge-done' : 'badge-none'}">${done ? `最高分 ${score} / ${total}` : '未开始'}</span>
+          <span>#${q.id}</span>
+        </div>
+        <h3>${q.title || `Practice ${q.id}`}</h3>
+        <div class="date">${q.date || ''}</div>
+      `;
+      grid.appendChild(card);
+    });
+  </script>
 </body>
 </html>
