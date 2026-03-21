@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Practice</title>
+</head>
+<body>
+<a href="index.html">← Back</a>
+<div id="content"></div>
+<script src="data/questions.js"></script>
+<script>
+const params = new URLSearchParams(location.search);
+const id = Number(params.get("id"));
+const q = questions.find(x=>x.id===id);
+document.getElementById("content").innerText = q.raw + "\n\nAnswer: " + q.answer;
+</script>
+</body>
+</html>
