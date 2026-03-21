@@ -1,90 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Speaking Practice</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-  <div class="container">
-    <h1>Speaking — Listen and Repeat</h1>
-    <h2>20260321 Set 1</h2>
+  <div class="page-shell">
+    <a class="top-link" href="index.html">← Back to home</a>
 
-    <div id="speaking-container"></div>
+    <header class="page-title">
+      <h1>Speaking · Listen and Repeat</h1>
+      <p class="page-subtitle">
+        Tap a scene to open it. Then tap the speaker button to hear each sentence.
+      </p>
+    </header>
+
+    <section class="panel toolbar">
+      <label>
+        <span class="helper-text">Voice style</span><br>
+        <select id="voiceStyle" class="select">
+          <option value="expressive" selected>Expressive</option>
+          <option value="clear">Clear</option>
+          <option value="slow">Slow and clear</option>
+        </select>
+      </label>
+
+      <button id="playOpenScene" class="btn btn-primary" type="button">▶ Play open scene</button>
+      <button id="stopAudio" class="btn" type="button">■ Stop</button>
+
+      <p class="voice-note">
+        Browser voices may sound slightly different on different devices, but this page will try to choose the most natural English voice available.
+      </p>
+    </section>
+
+    <div id="speaking-root"></div>
   </div>
 
-<script src="site-data.js"></script>
+  <script src="site-data.js"></script>
+  <script>
+    let voices = [];
+    let currentOpenScene = null;
 
-<script>
-let voices = [];
+    function loadVoices() {
+      voices = speechSynthesis.getVoices() || [];
+    }
 
-function loadVoices() {
-  voices = speechSynthesis.getVoices();
-}
-loadVoices();
-speechSynthesis.onvoiceschanged = loadVoices;
+    loadVoices();
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+      speechSynthesis.onvoiceschanged = loadVoices;
+    }
 
-function speak(text) {
-  const utter = new SpeechSynthesisUtterance(text);
+    function chooseBestVoice() {
+      const preferredNames = [
+        "Google US English",
+        "Google UK English Female",
+        "Microsoft Aria Online (Natural)",
+        "Microsoft Jenny Online (Natural)",
+        "Microsoft Guy Online (Natural)",
+        "Samantha",
+        "Daniel"
+      ];
 
-  const preferred = voices.find(v =>
-    v.lang.includes("en") &&
-    (v.name.includes("Google") || v.name.includes("Natural") || v.name.includes("Samantha"))
-  );
+      for (const target of preferredNames) {
+        const found = voices.find(v => v.name === target);
+        if (found) return found;
+      }
 
-  if (preferred) utter.voice = preferred;
+      const natural = voices.find(v =>
+        /^en/i.test(v.lang) &&
+        /(Natural|Google|Samantha|Daniel|Aria|Jenny|Guy)/i.test(v.name)
+      );
+      if (natural) return natural;
 
-  utter.rate = 0.95;
-  utter.pitch = 1;
+      return voices.find(v => /^en/i.test(v.lang)) || null;
+    }
 
-  speechSynthesis.cancel();
-  speechSynthesis.speak(utter);
-}
+    function getSpeechSettings() {
+      const style = document.getElementById("voiceStyle").value;
+      if (style === "clear") return { rate: 0.92, pitch: 1.02 };
+      if (style === "slow") return { rate: 0.82, pitch: 1.0 };
+      return { rate: 0.9, pitch: 1.08 };
+    }
 
-const container = document.getElementById("speaking-container");
-const speaking = siteData.speaking.types.find(t => t.id === "lr");
+    function speakText(text, addPause = false) {
+      speechSynthesis.cancel();
 
-speaking.data.forEach(item => {
-  const card = document.createElement("div");
-  card.className = "card";
+      const utter = new SpeechSynthesisUtterance(text);
+      const voice = chooseBestVoice();
+      const settings = getSpeechSettings();
 
-  const header = document.createElement("div");
-  header.className = "card-header";
-  header.innerText = item.title + " ▶";
+      if (voice) utter.voice = voice;
+      utter.lang = "en-US";
+      utter.rate = settings.rate;
+      utter.pitch = settings.pitch;
+      utter.volume = 1;
 
-  const content = document.createElement("div");
-  content.className = "card-content";
-  content.style.display = "none";
+      speechSynthesis.speak(utter);
 
-  item.lines.forEach(line => {
-    const p = document.createElement("p");
-    p.innerHTML = `🔊 ${line}`;
-    p.onclick = () => speak(line);
-    content.appendChild(p);
-  });
+      if (addPause) {
+        const pause = new SpeechSynthesisUtterance(" ");
+        pause.volume = 0;
+        speechSynthesis.speak(pause);
+      }
+    }
 
-  const vocabTitle = document.createElement("h4");
-  vocabTitle.innerText = "Vocabulary";
-  content.appendChild(vocabTitle);
+    function playScene(lines) {
+      speechSynthesis.cancel();
+      const voice = chooseBestVoice();
+      const settings = getSpeechSettings();
 
-  item.vocab.forEach(v => {
-    const p = document.createElement("p");
-    p.innerText = "• " + v;
-    content.appendChild(p);
-  });
+      lines.forEach((line, index) => {
+        const utter = new SpeechSynthesisUtterance(line);
+        if (voice) utter.voice = voice;
+        utter.lang = "en-US";
+        utter.rate = settings.rate;
+        utter.pitch = settings.pitch;
+        utter.volume = 1;
+        speechSynthesis.speak(utter);
 
-  header.onclick = () => {
-    const open = content.style.display === "block";
-    content.style.display = open ? "none" : "block";
-    header.innerText = item.title + (open ? " ▶" : " ▼");
-  };
+        if (index < lines.length - 1) {
+          const pause = new SpeechSynthesisUtterance(" ");
+          pause.volume = 0;
+          speechSynthesis.speak(pause);
+        }
+      });
+    }
 
-  card.appendChild(header);
-  card.appendChild(content);
-  container.appendChild(card);
-});
-</script>
+    const root = document.getElementById("speaking-root");
+    const speakingType = siteData.speaking.types.find(t => t.id === "lr");
+    const set = speakingType.sets[0];
 
+    const setTitle = document.createElement("h2");
+    setTitle.className = "set-title";
+    setTitle.textContent = set.title;
+    root.appendChild(setTitle);
+
+    set.scenes.forEach(scene => {
+      const card = document.createElement("section");
+      card.className = "panel scene-card";
+
+      const header = document.createElement("button");
+      header.className = "scene-header";
+      header.type = "button";
+      header.innerHTML = '<span class="scene-name">' + scene.title + '</span><span class="scene-arrow">▶</span>';
+
+      const content = document.createElement("div");
+      content.className = "scene-content";
+
+      const lineList = document.createElement("div");
+      lineList.className = "line-list";
+
+      scene.lines.forEach(line => {
+        const lineItem = document.createElement("div");
+        lineItem.className = "line-item";
+
+        const playButton = document.createElement("button");
+        playButton.className = "play-btn";
+        playButton.type = "button";
+        playButton.textContent = "🔊";
+        playButton.setAttribute("aria-label", "Play sentence");
+        playButton.addEventListener("click", (e) => {
+          e.stopPropagation();
+          speakText(line);
+        });
+
+        const lineText = document.createElement("div");
+        lineText.className = "line-text";
+        lineText.textContent = line;
+
+        lineItem.appendChild(playButton);
+        lineItem.appendChild(lineText);
+        lineList.appendChild(lineItem);
+      });
+
+      const vocabTitle = document.createElement("h3");
+      vocabTitle.className = "block-title";
+      vocabTitle.textContent = "Vocabulary";
+
+      const vocabGrid = document.createElement("div");
+      vocabGrid.className = "vocab-grid";
+
+      scene.vocab.forEach(item => {
+        const vocabItem = document.createElement("div");
+        vocabItem.className = "vocab-item";
+        vocabItem.textContent = item;
+        vocabGrid.appendChild(vocabItem);
+      });
+
+      content.appendChild(lineList);
+      content.appendChild(vocabTitle);
+      content.appendChild(vocabGrid);
+
+      header.addEventListener("click", () => {
+        const isOpen = content.classList.contains("open");
+
+        document.querySelectorAll(".scene-content").forEach(node => node.classList.remove("open"));
+        document.querySelectorAll(".scene-arrow").forEach(node => node.textContent = "▶");
+
+        if (!isOpen) {
+          content.classList.add("open");
+          header.querySelector(".scene-arrow").textContent = "▼";
+          currentOpenScene = scene;
+        } else {
+          currentOpenScene = null;
+        }
+      });
+
+      card.appendChild(header);
+      card.appendChild(content);
+      root.appendChild(card);
+    });
+
+    document.getElementById("playOpenScene").addEventListener("click", () => {
+      if (currentOpenScene) {
+        playScene(currentOpenScene.lines);
+      }
+    });
+
+    document.getElementById("stopAudio").addEventListener("click", () => {
+      speechSynthesis.cancel();
+    });
+  </script>
 </body>
 </html>

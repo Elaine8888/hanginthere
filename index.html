@@ -1,57 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hang in There</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-  <div class="container">
-    <h1>Hang in There</h1>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-badge">Practice Hub</div>
+      <h1>Hang in There</h1>
+      <p class="hero-text">
+        Find your practice by section.<br>
+        All exercises are organized into <strong>Reading, Listening, Speaking, and Writing</strong>.<br>
+        Select a question type and start practicing.
+      </p>
+      <p class="hero-encourage">Keep going — every bit of practice helps you grow stronger.</p>
+    </header>
 
-    <p class="intro">
-      Find your practice by section.<br>
-      All exercises are organized into <b>Reading, Listening, Speaking, and Writing</b>.<br>
-      Select a question type and start practicing.<br><br>
-      💪 Keep going — small steps every day lead to big progress.
-    </p>
+    <main class="grid">
+      <a class="skill-card" href="complete-the-words.html">
+        <div class="skill-icon">📖</div>
+        <h2>Reading</h2>
+        <p>Build reading speed, structure awareness, and question skills.</p>
+        <ul>
+          <li>Complete the Words</li>
+          <li>Read in Daily Life</li>
+          <li>Read an Academic Passage</li>
+        </ul>
+      </a>
 
-    <div class="section">
-      <h2>📖 Reading</h2>
-      <ul>
-        <li><a href="complete-the-words.html">Complete the Words</a></li>
-        <li>Read in Daily Life</li>
-        <li>Read an Academic Passage</li>
-      </ul>
-    </div>
+      <section class="skill-card">
+        <div class="skill-icon">🎧</div>
+        <h2>Listening</h2>
+        <p>Train response recognition, announcements, conversations, and talks.</p>
+        <ul>
+          <li>Listen and Choose a Response</li>
+          <li>Listen to a Conversation</li>
+          <li>Listen to an Announcement</li>
+          <li>Listen to an Academic Talk</li>
+        </ul>
+      </section>
 
-    <div class="section">
-      <h2>🎧 Listening</h2>
-      <ul>
-        <li>Listen and Choose a Response</li>
-        <li>Listen to a Conversation</li>
-        <li>Listen to an Announcement</li>
-        <li>Listen to an Academic Talk</li>
-      </ul>
-    </div>
+      <a class="skill-card" href="speaking.html">
+        <div class="skill-icon">🗣️</div>
+        <h2>Speaking</h2>
+        <p>Practice repeating clearly and get familiar with common campus scenes.</p>
+        <ul>
+          <li>Listen and Repeat</li>
+          <li>Take an Interview</li>
+        </ul>
+      </a>
 
-    <div class="section">
-      <h2>🗣️ Speaking</h2>
-      <ul>
-        <li><a href="speaking.html">Listen and Repeat</a></li>
-        <li>Take an Interview</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>✍️ Writing</h2>
-      <ul>
-        <li>Build a Sentence</li>
-        <li>Write an Email</li>
-        <li>Academic Discussion</li>
-      </ul>
-    </div>
+      <section class="skill-card">
+        <div class="skill-icon">✍️</div>
+        <h2>Writing</h2>
+        <p>Develop sentence building, email writing, and academic discussion skills.</p>
+        <ul>
+          <li>Build a Sentence</li>
+          <li>Write an Email</li>
+          <li>Academic Discussion</li>
+        </ul>
+      </section>
+    </main>
   </div>
 </body>
 </html>

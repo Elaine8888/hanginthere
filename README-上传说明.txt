@@ -1,29 +1,31 @@
-你这次需要上传 / 替换的文件：
+上传说明：
 
+这次请替换 / 新增以下文件：
 1. index.html
-2. module.html
-3. site-data.js
-4. styles.css
+2. speaking.html
+3. styles.css
+4. site-data.js
 
-今天新增口语内容已经写进 site-data.js 里了，不需要再单独上传 speaking-data.js。
+请保留你原来的：
+- complete-the-words.html
+- question.js
 
-另外有一个重要操作：
-- 你原来正在使用的 Complete the Words 页面，请把那个文件重命名为 complete-the-words.html
+建议目录：
+/
+├── index.html
+├── speaking.html
+├── styles.css
+├── site-data.js
+├── complete-the-words.html
+└── question.js
 
-推荐最终文件结构：
-- index.html                  新首页（四大模块导航）
-- module.html                 各题型展示页
-- site-data.js                所有栏目与今天新增口语内容
-- styles.css                  公共样式
-- complete-the-words.html     你原来的 Complete the Words 页面
-- 以及你原来 Complete the Words 依赖的 question.js 等文件照常保留
+这次更新内容：
+- 首页恢复为更完整的卡片式 UI
+- Speaking 页面改成点开场景后再看句子
+- 每句支持浏览器 TTS 播放
+- 新增 voice style 选项：Expressive / Clear / Slow and clear
+- 已加入 20260321 Set 1 的 5 个场景：Gym / Wood Shop / Library / Campus Tour / Course System
 
-上传后效果：
-- 首页显示 Reading / Listening / Speaking / Writing
-- Reading 里包含 Complete the Words / Read in Daily Life / Read an Academic Passage
-- Speaking 里包含 Listen and Repeat / Take an Interview
-- Listen and Repeat 已显示今天的 1-5 题
-- 其他题型先显示“内容待补充”
-
-如果你原来的 Complete the Words 页面不是单独文件，而是原来的 index.html，
-那就先把原来的 index.html 下载下来，改名为 complete-the-words.html，再上传新的 index.html。
+说明：
+浏览器自带 TTS 的声音效果会受设备和浏览器影响。
+这个版本会优先尝试调用更自然的英文 voice，但不同学生设备上效果可能略有不同。
