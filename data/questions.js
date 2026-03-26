@@ -1764,7 +1764,14 @@ window.questions = [
       }
     ]
   },
-  
+  {
+    "id": 31,
+    "title": "Art colonies",
+    "subtitle": "",
+    "date": "20260210 / 20260314",
+    "template": "Art colonies have historically served as vibrant communities where artists gather to share ideas, collaborate, and create. The comm_____ environment all___ artists t_ receive feed____ from pe___ and exper_____ with n__ techniques, enri_____ their arti____ practice. Su__ enclaves often emerge in picturesque locations that inspire creativity, such as coastal towns or rural landscapes. Notable art colonies, like those in Montmartre or Taos, have produced influential works and fostered new movements such as Impressionism and Modernism. Contemporary art colonies continue this tradition, adapting to modern mediums and technologies while maintaining a spirit of collaboration and innovation.",
+    "items": []
+  },
   {
     "id": 32,
     "title": "Grasshoppers",
