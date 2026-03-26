@@ -57,7 +57,7 @@
     .result-card {
       background: #fff;
       border-radius: 18px;
-      
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
       padding: 28px;
     }
 
@@ -147,7 +147,7 @@
 
     .option input {
       margin-right: 10px;
-      
+      transform: translateY(1px);
     }
 
     button {
@@ -254,24 +254,23 @@
 
     /* ===== 通用句子插入题插件样式 ===== */
     .insert-slot {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  background-color: #00796b;
-  margin: 0 6px;
-  border-radius: 2px;
-  cursor: pointer;
-  vertical-align: middle;
-}
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background-color: #00796b;
+      margin: 0 6px;
+      border-radius: 2px;
+      cursor: pointer;
+      vertical-align: middle;
+    }
 
     .insert-slot:hover {
-      background: #0c8590;
-      
+      background-color: #00695c;
     }
 
     .insert-slot.selected {
-      background: #0a6f78;
-      outline: 2px solid #b9f0f3;
+      outline: 2px solid #80cbc4;
+      outline-offset: 1px;
     }
 
     .inserted-sentence {
@@ -762,19 +761,25 @@
         return;
       }
 
+      const stripSlots = (text) => (text || "")
+        .replace(/\[SLOT_A\]/g, "")
+        .replace(/\[SLOT_B\]/g, "")
+        .replace(/\[SLOT_C\]/g, "")
+        .replace(/\[SLOT_D\]/g, "");
+
       if (currentPassage.highlightQuestionIndex === currentIndex && currentPassage.highlightedPassage) {
-        passageEl.innerHTML = currentPassage.highlightedPassage;
+        passageEl.innerHTML = stripSlots(currentPassage.highlightedPassage);
       } else {
-        passageEl.textContent = currentPassage.plainPassage;
+        passageEl.textContent = stripSlots(currentPassage.plainPassage);
       }
     }
 
     function renderInsertionPassage(q, selectedLetter = null) {
       let html = q.passageWithSlots
-        .replace(/\[A\]/g, '<span class="insert-slot" data-slot="A">■</span>')
-        .replace(/\[B\]/g, '<span class="insert-slot" data-slot="B">■</span>')
-        .replace(/\[C\]/g, '<span class="insert-slot" data-slot="C">■</span>')
-        .replace(/\[D\]/g, '<span class="insert-slot" data-slot="D">■</span>');
+        .replace(/\[SLOT_A\]/g, '<span class="insert-slot" data-slot="A" aria-label="Position A"></span>')
+        .replace(/\[SLOT_B\]/g, '<span class="insert-slot" data-slot="B" aria-label="Position B"></span>')
+        .replace(/\[SLOT_C\]/g, '<span class="insert-slot" data-slot="C" aria-label="Position C"></span>')
+        .replace(/\[SLOT_D\]/g, '<span class="insert-slot" data-slot="D" aria-label="Position D"></span>');
 
       passageEl.innerHTML = html;
 
