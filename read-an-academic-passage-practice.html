@@ -269,8 +269,7 @@
     }
 
     .insert-slot.selected {
-      outline: 2px solid #80cbc4;
-      outline-offset: 1px;
+      background-color: #005f56;
     }
 
     .inserted-sentence {
@@ -692,7 +691,9 @@
                   {
                         "type": "insertion",
                         "question": "5. There are four locations [■] in the passage that indicate where the following sentence could be added. Where would the sentence best fit? Select a location [■] to add the sentence to the passage.",
-                        "passageWithSlots": "Green roofs, or living roofs, are gaining prominence in urban areas due to their environmental benefits. These are roofs covered with vegetation to help manage stormwater by absorbing rainfall, decreasing runoff, and minimizing flooding risks.\n\nAnother advantage of green roofs is their ability to improve air quality. Plants on the roof filter pollutants and capture dust. Additionally, green roofs reduce the urban heat island effect. Conventional roofs absorb and radiate heat, increasing urban temperatures. In contrast, green roofs keep buildings cooler by providing insulation and emitting moisture through their plants and soil.\n\nGreen roofs offer energy-efficiency benefits. The insulation provided by soil and plants reduces the need for heating in winter and cooling in summer, leading to energy savings. Green roofs can also extend the lifespan of the roof by shielding materials from UV radiation and extreme temperatures, keeping the underlying structure sound for longer.\n\nFinally, green roofs support urban biodiversity. Their vegetative layers create habitats for insects and birds in cities where green spaces are limited. These microhabitats help sustain pollinator populations and promote ecological balance. [A] Green roofs can even be designed to grow food, contributing to food security in urban environments. [B] Despite these advantages, green roofs can be costly to install. [C] However, many cities offer incentives to encourage their adoption. [D]",
+                        "type": "insertion",
+                        "passageWithSlots": "Green roofs, or living roofs, are gaining prominence in urban areas due to their environmental benefits. These are roofs covered with vegetation to help manage stormwater by absorbing rainfall, decreasing runoff, and minimizing flooding risks.\n\nAnother advantage of green roofs is their ability to improve air quality. Plants on the roof filter pollutants and capture dust. Additionally, green roofs reduce the urban heat island effect. Conventional roofs absorb and radiate heat, increasing urban temperatures. In contrast, green roofs keep buildings cooler by providing insulation and emitting moisture through their plants and soil.\n\nGreen roofs offer energy-efficiency benefits. The insulation provided by soil and plants reduces the need for heating in winter and cooling in summer, leading to energy savings. Green roofs can also extend the lifespan of the roof by shielding materials from UV radiation and extreme temperatures, keeping the underlying structure sound for longer.\n\nFinally, green roofs support urban biodiversity. Their vegetative layers create habitats for insects and birds in cities where green spaces are limited. These microhabitats help sustain pollinator populations and promote ecological balance. [SLOT_A] Green roofs can even be designed to grow food, contributing to food security in urban environments. [SLOT_B] Despite these advantages, green roofs can be costly to install. [SLOT_C] However, many cities offer incentives to encourage their adoption. [SLOT_D]",
+                        "type": "insertion",
                         "insertSentence": "Additionally, green roofs require ongoing maintenance to ensure proper drainage, plant health, and structural integrity.",
                         "options": [],
                         "answer": "B",
@@ -728,7 +729,7 @@
     passageMetaEl.textContent = currentPassage.date ? `Test Date: ${currentPassage.date} · Passage #${currentPassage.id}` : `Passage #${currentPassage.id}`;
 
     function isInsertionQuestion(q) {
-      return q && q.type === "insertion";
+      return !!(q && (q.type === "insertion" || q.passageWithSlots || q.insertSentence));
     }
 
     function normalizeInsertionAnswer(answer) {
@@ -765,7 +766,11 @@
         .replace(/\[SLOT_A\]/g, "")
         .replace(/\[SLOT_B\]/g, "")
         .replace(/\[SLOT_C\]/g, "")
-        .replace(/\[SLOT_D\]/g, "");
+        .replace(/\[SLOT_D\]/g, "")
+        .replace(/\[A\]/g, "")
+        .replace(/\[B\]/g, "")
+        .replace(/\[C\]/g, "")
+        .replace(/\[D\]/g, "");
 
       if (currentPassage.highlightQuestionIndex === currentIndex && currentPassage.highlightedPassage) {
         passageEl.innerHTML = stripSlots(currentPassage.highlightedPassage);
@@ -775,11 +780,11 @@
     }
 
     function renderInsertionPassage(q, selectedLetter = null) {
-      let html = q.passageWithSlots
-        .replace(/\[SLOT_A\]/g, '<span class="insert-slot" data-slot="A" aria-label="Position A"></span>')
-        .replace(/\[SLOT_B\]/g, '<span class="insert-slot" data-slot="B" aria-label="Position B"></span>')
-        .replace(/\[SLOT_C\]/g, '<span class="insert-slot" data-slot="C" aria-label="Position C"></span>')
-        .replace(/\[SLOT_D\]/g, '<span class="insert-slot" data-slot="D" aria-label="Position D"></span>');
+      let html = (q.passageWithSlots || "")
+        .replace(/\[SLOT_A\]|\[A\]/g, '<span class="insert-slot" data-slot="A" aria-label="Position A"></span>')
+        .replace(/\[SLOT_B\]|\[B\]/g, '<span class="insert-slot" data-slot="B" aria-label="Position B"></span>')
+        .replace(/\[SLOT_C\]|\[C\]/g, '<span class="insert-slot" data-slot="C" aria-label="Position C"></span>')
+        .replace(/\[SLOT_D\]|\[D\]/g, '<span class="insert-slot" data-slot="D" aria-label="Position D"></span>');
 
       passageEl.innerHTML = html;
 
