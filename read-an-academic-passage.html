@@ -4,38 +4,85 @@
   <meta charset="UTF-8">
   <title>Academic Passage</title>
   <link rel="stylesheet" href="./styles.css">
+
   <style>
     .container {
-      max-width: 800px;
-      margin: 40px auto;
-    }
-
-    .card {
-      background: white;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-radius: 12px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .card:hover {
-      transform: translateY(-2px);
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
     }
 
     h1 {
       text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      margin-bottom: 16px;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      transition: 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .meta {
+      color: #64748b;
+      font-size: 14px;
     }
   </style>
 </head>
+
 <body>
 
 <div class="container">
   <h1>Read an Academic Passage</h1>
 
+  <!-- Passage 1 -->
   <div class="card" onclick="start(1)">
-    <h2>#1 The Dynamics of Hollywood’s Golden Age</h2>
-    <p>2026-03-08</p>
+    <div class="title">#1 The Dynamics of Hollywood’s Golden Age</div>
+    <div class="meta">Exam Date: 2026-03-08</div>
+  </div>
+
+  <!-- Passage 2 -->
+  <div class="card" onclick="start(2)">
+    <div class="title">#2 Augmented Reality for Training</div>
+    <div class="meta">Exam Date: 2026-01-21</div>
+  </div>
+
+  <!-- Passage 3 -->
+  <div class="card" onclick="start(3)">
+    <div class="title">#3 Formation of Sedimentary Rocks</div>
+    <div class="meta">Exam Date: 2026-01-21</div>
+  </div>
+
+  <!-- Passage 4 -->
+  <div class="card" onclick="start(4)">
+    <div class="title">#4 Thinking Outside the Box</div>
+    <div class="meta">Exam Date: 2026-01-21</div>
+  </div>
+
+  <!-- Passage 5 -->
+  <div class="card" onclick="start(5)">
+    <div class="title">#5 Plant Communication</div>
+    <div class="meta">Exam Date: 2026-01-21</div>
+  </div>
+
+  <!-- Passage 6 -->
+  <div class="card" onclick="start(6)">
+    <div class="title">#6 Green Roof Benefits</div>
+    <div class="meta">Exam Date: 2026-01-21</div>
   </div>
 
 </div>
