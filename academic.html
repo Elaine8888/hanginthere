@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Read an Academic Passage</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <style>
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      display: flex;
+      gap: 40px;
+    }
+
+    .passage {
+      flex: 1;
+      line-height: 1.7;
+    }
+
+    .questions {
+      flex: 1;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .highlight-word {
+      background: #14b8a6;
+      color: white;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="passage" id="passage"></div>
+  <div class="questions" id="questions"></div>
+</div>
+
+<button onclick="check()">Submit</button>
+
+<script>
+const data = {
+  passage: `Hollywood's Golden Age, from the 1920s to the 1960s, was a transformative period in cinema history. Under the studio system, major companies like RKO controlled film production, creating an efficient assembly-line process that produced stars such as Humphrey Bogart and Katharine Hepburn. While this system ensured a steady output of films, it often limited creative freedom for directors and actors tied to restrictive contracts. Yet this very constraint led to unexpected innovation as filmmakers sought new ways to tell <span class="highlight-word">compelling</span> stories within set boundaries.
+
+A pivotal change during this era was the introduction of sound, forever altering cinematic storytelling. Silent film stars had to adapt or risk obsolescence, while new genres like musicals capitalized on sound technology's possibilities. This shift pushed directors to experiment with narrative structures, often blurring the lines between genres to captivate audiences.
+
+The decline of the studio system began with a 1948 Supreme Court ruling that dismantled studios' monopolies over theaters. This ruling opened the door for independent filmmakers, whose diverse and unconventional stories began gaining traction in theaters. However, the legacy of the studio system's efficiency and star-making machinery still influences Hollywood's operations today.`,
+
+  questions: [
+    {
+      q: "Which aspect of the studio system encouraged filmmakers to innovate?",
+      options: [
+        "The demand for more silent films",
+        "The freedom to create experimental films",
+        "The inefficiency of film production",
+        "The boundaries imposed by restrictive contracts"
+      ],
+      answer: 3
+    },
+    {
+      q: "The word 'compelling' is closest in meaning to",
+      options: ["modern","astonishing","fascinating","complex"],
+      answer: 2
+    },
+    {
+      q: "Why does the author mention the introduction of sound?",
+      options: [
+        "To highlight a development that led to new, creative narrative techniques",
+        "To emphasize silent films",
+        "To discuss renewed careers",
+        "To show decline start"
+      ],
+      answer: 0
+    },
+    {
+      q: "What inference about the 1948 ruling?",
+      options: [
+        "Increase profits",
+        "Help independent films",
+        "More musicals",
+        "No effect"
+      ],
+      answer: 1
+    },
+    {
+      q: "What about today’s Hollywood?",
+      options: [
+        "No influence remains",
+        "Only storytelling influence",
+        "Independents replaced studios",
+        "Assembly-line still influences"
+      ],
+      answer: 3
+    }
+  ]
+};
+
+document.getElementById("passage").innerHTML = data.passage;
+
+const qDiv = document.getElementById("questions");
+
+data.questions.forEach((q, i) => {
+  let html = `<div class="question"><p>${i+1}. ${q.q}</p>`;
+  q.options.forEach((opt, j) => {
+    html += `
+      <label>
+        <input type="radio" name="q${i}" value="${j}">
+        ${opt}
+      </label><br>
+    `;
+  });
+  html += `</div>`;
+  qDiv.innerHTML += html;
+});
+
+function check(){
+  let score = 0;
+  data.questions.forEach((q,i)=>{
+    const selected = document.querySelector(`input[name=q${i}]:checked`);
+    if(selected && Number(selected.value) === q.answer){
+      score++;
+    }
+  });
+  alert("Score: " + score + "/" + data.questions.length);
+}
+</script>
+
+</body>
+</html>
