@@ -299,6 +299,7 @@
         </div>
 
         <div class="question-text" id="questionText"></div>
+        <div id="insertSentenceBox" style="margin-bottom:16px; font-weight:600;"></div>
         <div class="options" id="options"></div>
         <div class="muted">You can move on even if you leave a question unanswered.</div>
       </section>
@@ -418,27 +419,38 @@ The decline of the studio system began with a 1948 Supreme Court ruling that dis
       }
     }
 
-    function renderQuestion() {
-      const q = currentPassage.questions[currentIndex];
-      progressEl.textContent = `Question ${currentIndex + 1} of ${currentPassage.questions.length}`;
-      questionTextEl.textContent = q.question;
+function renderQuestion() {
+  const q = currentPassage.questions[currentIndex];
+  progressEl.textContent = `Question ${currentIndex + 1} of ${currentPassage.questions.length}`;
+  questionTextEl.textContent = q.question;
 
-      optionsEl.innerHTML = "";
-      q.options.forEach((option, idx) => {
-        const optionId = `q${currentIndex}_opt${idx}`;
-        const checked = userAnswers[currentIndex] === idx ? "checked" : "";
-        optionsEl.innerHTML += `
-          <label class="option" for="${optionId}">
-            <input type="radio" id="${optionId}" name="question" value="${idx}" ${checked}>
-            ${option}
-          </label>
-        `;
-      });
+  optionsEl.innerHTML = "";
 
-      backBtn.disabled = currentIndex === 0;
-      nextBtn.textContent = currentIndex === currentPassage.questions.length - 1 ? "Finish" : "Next";
+  if (q.type === "insertion") {
+    document.getElementById("insertSentenceBox").innerText = q.insertSentence || "";
+    renderInsertionChoices(userAnswers[currentIndex]);
+    hintText.textContent = "Click one of the four squares in the passage to place the sentence.";
+  } else {
+    document.getElementById("insertSentenceBox").innerText = "";
 
-      renderPassage();
+    q.options.forEach((option, idx) => {
+      const optionId = `q${currentIndex}_opt${idx}`;
+      const checked = userAnswers[currentIndex] === idx ? "checked" : "";
+      optionsEl.innerHTML += `
+        <label class="option" for="${optionId}">
+          <input type="radio" id="${optionId}" name="question" value="${idx}" ${checked}>
+          ${option}
+        </label>
+      `;
+    });
+
+    hintText.textContent = "You can move on even if you leave a question unanswered.";
+  }
+
+  backBtn.disabled = currentIndex === 0;
+  nextBtn.textContent = currentIndex === currentPassage.questions.length - 1 ? "Finish" : "Next";
+
+  renderPassage();
     }
 
     function getSelectedAnswer() {
