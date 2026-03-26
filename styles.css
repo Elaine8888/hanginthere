@@ -271,6 +271,47 @@ a{text-decoration:none;color:inherit}
     flex-wrap:wrap;
   }
 
+  /* ===== Navbar（顶部导航） ===== */
+
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  background:var(--panel);
+  border-bottom:1px solid var(--line);
+  z-index:1000;
+}
+
+.nav-inner{
+  max-width:1180px;
+  margin:0 auto;
+  padding:14px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-weight:800;
+  font-size:18px;
+  color:var(--text);
+}
+
+.nav-links a{
+  margin-left:20px;
+  font-weight:600;
+  color:var(--muted);
+  transition:.2s;
+}
+
+.nav-links a:hover{
+  color:var(--primary);
+}
+
+/* ⭐ 给页面腾空间（防遮挡） */
+.page-shell{
+  padding-top:80px;
+}
   .vocab-grid{
     grid-template-columns:1fr;
   }
